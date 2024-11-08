@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Page</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- <style>
+    body { font-family: Arial, sans-serif; background-color: #f2f2f2; }
+    .container { max-width: 400px; margin: 50px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; }
+    input[type="text"], input[type="email"], input[type="password"], input[type="tel"] { 
+      width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; 
+    }
+    .error { color: red; font-size: 14px; margin-top: 5px; }
+    button { width: 100%; padding: 10px; background: #4CAF50; color: #fff; border: none; border-radius: 4px; font-size: 16px; }
+    button:hover { background: #45a049; }
+  </style> -->
+</head>
+<body>
+
+<div class="container">
+  <h2>Signup</h2>
+  <form id="signupForm">
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" name="fullName" required>
+      <div class="error" id="fullNameError"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="mobile">Mobile</label>
+      <input type="tel" id="mobile" name="mobile" required pattern="^\d{10}$" placeholder="10-digit number">
+      <div class="error" id="mobileError"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+      <div class="error" id="emailError"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required minlength="6">
+      <div class="error" id="passwordError"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required>
+      <div class="error" id="confirmPasswordError"></div>
+    </div>
+
+    <button type="submit">Sign Up</button>
+  </form>
+</div>
+
+<script>
+document.getElementById('signupForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // Reset error messages
+  document.getElementById('fullNameError').textContent = '';
+  document.getElementById('mobileError').textContent = '';
+  document.getElementById('emailError').textContent = '';
+  document.getElementById('passwordError').textContent = '';
+  document.getElementById('confirmPasswordError').textContent = '';
+
+  let isValid = true;
+
+  // Full Name Validation
+  const fullName = document.getElementById('fullName').value;
+  if (!fullName.trim()) {
+    document.getElementById('fullNameError').textContent = 'Full Name is required';
+    isValid = false;
+  }
+
+  // Mobile Validation
+  const mobile = document.getElementById('mobile').value;
+  const mobilePattern = /^\d{10}$/;
+  if (!mobilePattern.test(mobile)) {
+    document.getElementById('mobileError').textContent = 'Please enter a valid 10-digit mobile number';
+    isValid = false;
+  }
+
+  // Email Validation
+  const email = document.getElementById('email').value;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    document.getElementById('emailError').textContent = 'Please enter a valid email address';
+    isValid = false;
+  }
+
+  // Password Validation
+  const password = document.getElementById('password').value;
+  if (password.length < 6) {
+    document.getElementById('passwordError').textContent = 'Password must be at least 6 characters';
+    isValid = false;
+  }
+
+  // Confirm Password Validation
+  const confirmPassword = document.getElementById('confirmPassword').value;
+  if (confirmPassword !== password) {
+    document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+    isValid = false;
+  }
+
+  if (isValid) {
+    alert('Signup successful!');
+    // Add your form submission code here (e.g., send data to the server)
+  }
+});
+</script>
+</body>
+</html>
